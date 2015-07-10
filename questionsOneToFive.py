@@ -1,31 +1,12 @@
-import numpy
 
-
-def divisble_by_20(number):
-    for x in range(1,21):
-        if number % x != 0:
-            return False
-    return True
-
-
-def evenDivByTwenty():
-    solved = False
-    x = 20
-    while(not solved):
-        if divisble_by_20(x):
-            solved = True
-            print x
-        else:
-            x = x+20
-
-
+# Question 2
 
 def evenFibSum(number):
     total = 0
     count = 0
     fibEvenSum = 2
-    value1 = 1; #odd start
-    value2 = 2; #even  start
+    value1 = 1 #odd start
+    value2 = 2 #even  start
     while(total < number):
         total = value1 + value2
         if (total % 2 == 0):
@@ -35,7 +16,7 @@ def evenFibSum(number):
         count+=1
     print fibEvenSum
 
-
+# Question 3
 def largestPrimeFact(number):
     largestPossible = int((number**0.5) + 1)
     smallest = 1
@@ -43,7 +24,6 @@ def largestPrimeFact(number):
     for x in range(smallest, largestPossible):
         # Limit calling of is prime
         if number % x == 0:
-            print "Is it a prime number : " + str(isPrime(5))
             if (isPrime(x) and x > currLargest):
                 print currLargest
                 currLargest = x
@@ -53,13 +33,16 @@ def largestPrimeFact(number):
 
 
 def isPrime(number):
+    if ( number == 1):
+        return False
     largestPossible = int((number**0.5) + 1)
     smallest = 1
     for x in range(smallest, largestPossible):
-        if number % x == 0 and (x != 1):
+        if (number % x == 0 and (x != 1)):
             return False
     return True
 
+#Question 4
 def paliCheck(pali):
     endOfString = len(pali);
     for x in range(0,(endOfString/2)):
@@ -77,16 +60,31 @@ def largestDigitPali(digits):
         if x > 0:
             subString += "9"
     maxNumber = int(maxString)
-    minHighBase = int(subString)
-    print str(maxNumber)
-    maxStart = maxNumber - minHighBase
-    print str(maxStart)
+    minBase = int(subString) + 1
+     # maxStart = maxNumber - minHighBase
     currLargestPali = 0;
-    # For loops do not check last spot
-    for i in range(maxStart, maxNumber + 1):
-        for j in range(maxStart, maxNumber + 1):
-            curr = i * j
-            print "Before Loop : " + str(curr)
-            if(paliCheck(str(curr))):
-                currLargestPali = curr
+    for i in range(minBase, maxNumber + 1):
+        for j in range(minBase, maxNumber + 1):
+          curr = i * j
+          if(paliCheck(str(curr))):
+            currLargestPali = curr
     print str(currLargestPali)
+
+
+# Question 5
+def divisble_by_20(number):
+    for x in range(1,21):
+        if number % x != 0:
+            return False
+    return True
+
+
+def evenDivByTwenty():
+    solved = False
+    x = 20
+    while(not solved):
+        if divisble_by_20(x):
+            solved = True
+            print x
+        else:
+            x = x+20
