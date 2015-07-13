@@ -1,6 +1,7 @@
-import numpy
+from numpy import array
 
-matrix = array([8, 2, 22, 97, 38, 15, 00, 40, 00, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
+
+matrix = array([[8, 2, 22, 97, 38, 15, 00, 40, 00, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
 [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 00],
 [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
 [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
@@ -19,8 +20,49 @@ matrix = array([8, 2, 22, 97, 38, 15, 00, 40, 00, 75, 4, 5, 7, 78, 52, 12, 50, 7
 [4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],
 [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],
 [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
-[1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48])
+[1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]])
 
-print matrix
-def prob_eleven(matrix):
-    pass
+def prob_eleven(matrix, length):
+    largest = 0
+    print str(matrix.shape)
+    row, column = matrix.shape
+    # Do the for loop for the number of rows
+    for i in range(0, row):
+        # Do for each column in the array
+        for j in range(0, column):
+            # Now calculate the
+            center = matrix[i][j]
+            up = center
+            down = center
+            right = center
+            left = center
+            upRight = center
+            upLeft = center
+            downRight = center
+            downLeft = center
+            for k in range(1,length):
+                rightOfCent = i + k
+                leftOfCent = i - k
+                downOfCent = j + k
+                upOfCent = j - k
+                # Check index out of bounds
+                if leftOfCent < 0:
+                    leftOfCent = 1
+                if rightOfCent > column-1:
+                    rightOfCent = column - 1
+                if downOfCent > row-1:
+                    downOfCent = row-1
+                if upOfCent < 0:
+                    upOfCent = 0
+                up = up * matrix[i][upOfCent]
+                down = down * matrix[i][downOfCent]
+                right = right * matrix[rightOfCent][j]
+                left = left * matrix[leftOfCent][j]
+                upRight = upRight * matrix[rightOfCent][upOfCent]
+                upLeft = upLeft * matrix[leftOfCent][upOfCent]
+                downRight = downRight * matrix[rightOfCent][downOfCent]
+                downLeft = downLeft * matrix[leftOfCent][downOfCent]
+            maxVal = max(up,down,right,left,upRight,upLeft,downRight,downLeft)
+            if maxVal > largest:
+                largest = maxVal
+    return largest
