@@ -32,6 +32,7 @@ def prob_eleven(matrix, length):
         for j in range(0, column):
             # Now calculate the
             center = matrix[i][j]
+            print "The center is {}".format(center)
             up = center
             down = center
             right = center
@@ -47,21 +48,59 @@ def prob_eleven(matrix, length):
                 upOfCent = j - k
                 # Check index out of bounds
                 if leftOfCent < 0:
-                    leftOfCent = 1
+                    leftCalc = 1
+                else:
+                    leftCalc = matrix[leftOfCent][j]
+
+                # Right Check
                 if rightOfCent > column-1:
-                    rightOfCent = column - 1
+                    rightCalc = 1
+                else:
+                    rightCalc = matrix[rightOfCent][j]
+
+                # Down Check
                 if downOfCent > row-1:
-                    downOfCent = row-1
+                    downCalc = 1
+                else:
+                    downCalc = matrix[i][downOfCent]
+                # Up Check
                 if upOfCent < 0:
-                    upOfCent = 0
-                up = up * matrix[i][upOfCent]
-                down = down * matrix[i][downOfCent]
-                right = right * matrix[rightOfCent][j]
-                left = left * matrix[leftOfCent][j]
-                upRight = upRight * matrix[rightOfCent][upOfCent]
-                upLeft = upLeft * matrix[leftOfCent][upOfCent]
-                downRight = downRight * matrix[rightOfCent][downOfCent]
-                downLeft = downLeft * matrix[leftOfCent][downOfCent]
+                    upCalc = 1
+                else:
+                    upCalc = matrix[i][upOfCent]
+
+                #Right Top Corner
+                if upOfCent < 0 or rightOfCent > column -1:
+                    rightUCorner = 1
+                else:
+                    rightUCorner = matrix[rightOfCent][upOfCent]
+
+                #Left Top Corner
+                if upOfCent < 0 or leftOfCent < 0:
+                    leftUCorner = 1
+                else:
+                    leftUCorner = matrix[leftOfCent][upOfCent]
+                #Right Down Corner
+                if downOfCent > row-1 or rightOfCent > column -1:
+                    rightDCorner = 1
+                else:
+                    rightDCorner = matrix[rightOfCent][downOfCent]
+
+                #Left Down Corner
+                if downOfCent > row -1 or leftOfCent < 0:
+                    leftDCorner = 1
+                else:
+                    leftDCorner = matrix[leftOfCent][downOfCent]
+
+
+                up = up * upCalc
+                down = down * downCalc
+                right = right * rightCalc
+                left = left * leftCalc
+                upRight = upRight * rightUCorner
+                upLeft = upLeft * leftUCorner
+                downRight = downRight * rightDCorner
+                downLeft = downLeft * leftDCorner
             maxVal = max(up,down,right,left,upRight,upLeft,downRight,downLeft)
             if maxVal > largest:
                 largest = maxVal
